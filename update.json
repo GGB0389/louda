@@ -1,0 +1,13 @@
+{
+  "versionCode": 1104,
+  "versionName": "3.1",
+  "url": "https://aaa-asm.pages.dev/GGB.sh",
+  "fileName": "GGB.sh",
+  "saveDir": "/data/user/0/bit.kernel.GGB0389/files/shell",
+  "sizeBytes": 10538704,
+  "updateLog": [
+    "优化更新下载速度",
+    "新增下载进度百分比",
+    "更新完成后提示重新启动"
+  ]
+}
