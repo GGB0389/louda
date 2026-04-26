@@ -1,11 +1,11 @@
 {
-  "versionCode": 1106,
-  "versionName": "3.1",
+“版本代码”：1108,
+  : "3.1",
   "url": "https://wang-bak.pages.dev/GGB.sh",
   "fileName": "GGB.sh",
   "saveDir": "/data/user/0/bit.kernel.GGB0389/files/shell",
   "sizeBytes": 10538704,
-  "updateLog": [
+“更新日志”：[
     "优化占用适配全面，修复已知BUG",
     "更新载具绘制，血量状态改成瞄准显示",
     "增加战斗功能，开启后剩余人数小于30暂时屏蔽人物以外的绘制",
