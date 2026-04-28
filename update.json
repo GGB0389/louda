@@ -1,16 +1,16 @@
 {
-"versionCode": 1108,
+"versionCode": 1110
 "versionName": "3.1",
   "url": "https://wang-bak.pages.dev/GGB.sh",
   "fileName": "GGB.sh",
   "saveDir": "/data/user/0/bit.kernel.GGB0389/files/shell",
   "sizeBytes": 10538704,
 "updateLog": [
-    "优化占用适配全面，修复已知BUG",
-    "更新载具绘制，血量状态改成瞄准显示",
-    "增加战斗功能，开启后剩余人数小于30暂时屏蔽人物以外的绘制",
-    "滑条可调节触发人数限制",
-    "增加坐标解密/闪框开启",
-    "有问题及时反馈"
+  "更新推送时间4.28日19:40",
+   "修复已知BUG，更新优化若干功能",
+   "不多介绍，自己体验，有想法可以反馈",
+   "下个版本预计更新无目标压枪等功能",
+   "敬请期待......",
+   "有问题及时反馈"
   ]
 }
