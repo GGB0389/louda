@@ -1,11 +1,11 @@
 {
-"versionCode": 1110
-"versionName": "3.1",
+ "versionCode": 1110,
+ "versionName":"3.1",
   "url": "https://wang-bak.pages.dev/GGB.sh",
   "fileName": "GGB.sh",
   "saveDir": "/data/user/0/bit.kernel.GGB0389/files/shell",
   "sizeBytes": 10538704,
-"updateLog": [
+  "updateLog": [
   "更新推送时间4.28日19:40",
    "修复已知BUG，更新优化若干功能",
    "不多介绍，自己体验，有想法可以反馈",
