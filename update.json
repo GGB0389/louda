@@ -1,16 +1,14 @@
 {
- "versionCode": 1110,
+ "versionCode": 1111,
  "versionName":"3.1",
   "url": "https://wang-bak.pages.dev/GGB.sh",
   "fileName": "GGB.sh",
   "saveDir": "/data/user/0/bit.kernel.GGB0389/files/shell",
   "sizeBytes": 10538704,
   "updateLog": [
-  "更新推送时间4.28日19:40",
-   "修复已知BUG，更新优化若干功能",
-   "不多介绍，自己体验，有想法可以反馈",
-   "下个版本预计更新无目标压枪等功能",
-   "敬请期待......",
+  "更新推送时间5.12日20:00",
+   "修复部分设备模型初始闪退问题",
+   "增加弓自瞄，陀螺仪调用优化",
    "有问题及时反馈"
   ]
 }
