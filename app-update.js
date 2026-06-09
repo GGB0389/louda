@@ -1,0 +1,1 @@
+window.__APP_RELEASE_DATA={"versionCode":2054,"versionName":"1.7.4","fileName":"ACE1.7.4.APK","sizeBytes":68609665,"sizeLabel":"65.4 MB","websiteUrl":"https://ace游戏管家.top/","downloadUrl":"https://wwaza.lanzouq.com/b00v03de3g","forceUpdate":false,"updateLog":["启动器支持自动检测 APK 更新","发现新版本时展示更新日志与安装包大小","点击按钮跳转官网下载最新版","修复已知问题"]};
