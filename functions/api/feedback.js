@@ -57,11 +57,29 @@ export async function onRequestPost(context) {
     imageCount: images.length,
   });
 
-  let delivered = false;
+  const hasToken = Boolean(env.TELEGRAM_BOT_TOKEN);
+  const hasChatId = Boolean(env.TELEGRAM_CHAT_ID);
 
-  if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) {
-    delivered = await sendToTelegram(env, summary, images);
+  if (!hasToken || !hasChatId) {
+    return json(
+      {
+        success: false,
+        message: "反馈服务未配置，请在 Cloudflare 设置 TELEGRAM_BOT_TOKEN 与 TELEGRAM_CHAT_ID",
+        hint: {
+          token: hasToken ? "ok" : "missing",
+          chatId: hasChatId ? "ok" : "missing",
+        },
+      },
+      503,
+    );
   }
+
+  let delivered = false;
+  let telegramError = null;
+
+  const telegramResult = await sendToTelegram(env, summary, images);
+  delivered = telegramResult.ok;
+  telegramError = telegramResult.error;
 
   if (env.FEEDBACK_BUCKET) {
     delivered = (await saveToR2(env, summary, images, {
@@ -78,13 +96,25 @@ export async function onRequestPost(context) {
     return json(
       {
         success: false,
-        message: "反馈服务未配置，请在 Cloudflare 设置 TELEGRAM_BOT_TOKEN 与 TELEGRAM_CHAT_ID",
+        message: "Telegram 推送失败，请检查 Token 与 Chat ID 是否正确",
+        hint: { token: "ok", chatId: "ok", telegramError },
       },
       503,
     );
   }
 
   return json({ success: true, message: "提交成功，感谢反馈" });
+}
+
+export async function onRequestGet(context) {
+  const { env } = context;
+  return json({
+    ok: true,
+    telegram: {
+      token: env.TELEGRAM_BOT_TOKEN ? "configured" : "missing",
+      chatId: env.TELEGRAM_CHAT_ID ? "configured" : "missing",
+    },
+  });
 }
 
 export async function onRequestOptions() {
@@ -116,10 +146,10 @@ async function sendToTelegram(env, summary, images) {
         body,
       });
     }
-    return true;
+    return { ok: true, error: null };
   } catch (error) {
     console.error("telegram feedback failed", error);
-    return false;
+    return { ok: false, error: String(error?.message || error) };
   }
 }
 
