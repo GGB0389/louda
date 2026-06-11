@@ -108,11 +108,35 @@ export async function onRequestPost(context) {
 
 export async function onRequestGet(context) {
   const { env } = context;
+  const token = String(env.TELEGRAM_BOT_TOKEN || "").trim();
+  const chatId = String(env.TELEGRAM_CHAT_ID || "").trim();
+
+  let botUsername = null;
+  let botError = null;
+  if (token) {
+    try {
+      const response = await fetch(`https://api.telegram.org/bot${token}/getMe`);
+      const data = await response.json();
+      if (data.ok) {
+        botUsername = data.result?.username || null;
+      } else {
+        botError = data.description || "getMe failed";
+      }
+    } catch (error) {
+      botError = String(error?.message || error);
+    }
+  }
+
   return json({
     ok: true,
     telegram: {
-      token: env.TELEGRAM_BOT_TOKEN ? "configured" : "missing",
-      chatId: env.TELEGRAM_CHAT_ID ? "configured" : "missing",
+      token: token ? "configured" : "missing",
+      chatId: chatId ? "configured" : "missing",
+      chatIdLength: chatId.length,
+      botUsername,
+      botError,
+      expectBot: "GGB0389BOT",
+      expectChatId: "6761293131",
     },
   });
 }
@@ -123,8 +147,8 @@ export async function onRequestOptions() {
 
 async function sendToTelegram(env, summary, images) {
   try {
-    const token = env.TELEGRAM_BOT_TOKEN;
-    const chatId = env.TELEGRAM_CHAT_ID;
+    const token = String(env.TELEGRAM_BOT_TOKEN).trim();
+    const chatId = String(env.TELEGRAM_CHAT_ID).trim();
 
     await tgRequest(token, "sendMessage", {
       chat_id: chatId,
