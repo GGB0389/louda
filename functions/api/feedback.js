@@ -293,7 +293,6 @@ function formatDeviceInfoLines(raw) {
     ["screen", "屏幕分辨率"],
     ["density_dpi", "屏幕 DPI"],
     ["abis", "CPU 架构"],
-    ["device_id", "设备码"],
     ["usage_days", "累计使用"],
     ["app_version", "应用版本"],
     ["app_package", "包名"],
@@ -315,10 +314,10 @@ function buildSummary({ text, username, deviceId, appVersion, appType, appId, us
     text ? `内容：\n${text}` : "内容：（仅图片）",
     "",
     `用户：${username || "未知"}`,
+    `设备码：${deviceId || "未知"}`,
   ];
 
   if (!deviceInfoRaw) {
-    lines.push(`设备码：${deviceId || "未知"}`);
     lines.push(`应用：${appType}${appVersion ? ` v${appVersion}` : ""}`);
     if (appId) lines.push(`包名：${appId}`);
     if (usageDays) lines.push(`累计使用：${usageDays} 天`);
