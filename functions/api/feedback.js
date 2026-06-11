@@ -10,7 +10,7 @@
  * 可选 R2 绑定（变量名 FEEDBACK_BUCKET）用于长期存档图片。
  */
 const MAX_TEXT_LENGTH = 500;
-const MAX_IMAGES = 3;
+const MAX_ATTACHMENTS = 6;
 const MAX_IMAGE_BYTES = 1_500_000;
 
 export async function onRequestPost(context) {
@@ -29,7 +29,10 @@ export async function onRequestPost(context) {
   const appVersion = String(formData.get("app_version") || "").trim();
   const appType = String(formData.get("app_type") || "app").trim();
   const appId = String(formData.get("app_id") || "").trim();
-  const images = formData.getAll("images").filter((item) => item instanceof File);
+  const usageDays = String(formData.get("usage_days") || "").trim();
+  const deviceInfoRaw = String(formData.get("device_info") || "").trim();
+  const images = formData.getAll("images").filter(isUploadFile);
+  const clientIp = getClientIp(request);
 
   if (!text && images.length === 0) {
     return json({ success: false, message: "请填写内容或选择图片" }, 400);
@@ -37,8 +40,8 @@ export async function onRequestPost(context) {
   if (text.length > MAX_TEXT_LENGTH) {
     return json({ success: false, message: `文本不能超过 ${MAX_TEXT_LENGTH} 字` }, 400);
   }
-  if (images.length > MAX_IMAGES) {
-    return json({ success: false, message: `最多上传 ${MAX_IMAGES} 张图片` }, 400);
+  if (images.length > MAX_ATTACHMENTS) {
+    return json({ success: false, message: `最多上传 ${MAX_ATTACHMENTS} 张图片` }, 400);
   }
 
   for (const image of images) {
@@ -54,7 +57,10 @@ export async function onRequestPost(context) {
     appVersion,
     appType,
     appId,
+    usageDays,
     imageCount: images.length,
+    clientIp,
+    deviceInfoRaw,
   });
 
   const hasToken = Boolean(env.TELEGRAM_BOT_TOKEN);
@@ -89,6 +95,8 @@ export async function onRequestPost(context) {
       appVersion,
       appType,
       appId,
+      clientIp,
+      deviceInfoRaw,
     })) || delivered;
   }
 
@@ -160,21 +168,28 @@ async function sendToTelegram(env, summary, images) {
       const body = new FormData();
       body.append("chat_id", chatId);
       body.append("photo", image, image.name || `feedback_${i + 1}.jpg`);
-      if (i === 0 && images.length === 1) {
-        body.append("caption", "反馈截图");
-      } else {
-        body.append("caption", `反馈截图 ${i + 1}/${images.length}`);
-      }
-      await fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
+      body.append("caption", images.length === 1 ? "反馈截图" : `反馈截图 ${i + 1}/${images.length}`);
+      const response = await fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
         method: "POST",
         body,
       });
+      if (!response.ok) {
+        const detail = await response.text();
+        throw new Error(`Telegram sendPhoto failed: ${detail}`);
+      }
     }
+
     return { ok: true, error: null };
   } catch (error) {
     console.error("telegram feedback failed", error);
     return { ok: false, error: String(error?.message || error) };
   }
+}
+
+function isUploadFile(item) {
+  if (item instanceof File) return item.size > 0;
+  if (typeof Blob !== "undefined" && item instanceof Blob) return item.size > 0;
+  return false;
 }
 
 async function tgRequest(token, method, payload) {
@@ -192,11 +207,11 @@ async function tgRequest(token, method, payload) {
 async function saveToR2(env, summary, images, meta) {
   try {
     const id = crypto.randomUUID();
-    const prefix = `feedback/${new Date().toISOString().slice(0, 10)}/${id}`;
+    const prefix = `feedback/${formatFeedbackTime().slice(0, 10)}/${id}`;
     const metadata = {
       ...meta,
       summary,
-      createdAt: new Date().toISOString(),
+      createdAt: formatFeedbackTime(),
       imageCount: images.length,
     };
 
@@ -218,19 +233,102 @@ async function saveToR2(env, summary, images, meta) {
   }
 }
 
-function buildSummary({ text, username, deviceId, appVersion, appType, appId, imageCount }) {
+function formatFeedbackTime(date = new Date()) {
+  const parts = new Intl.DateTimeFormat("zh-CN", {
+    timeZone: "Asia/Shanghai",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  }).formatToParts(date);
+  const pick = (type) => parts.find((part) => part.type === type)?.value ?? "";
+  return `${pick("year")}-${pick("month")}-${pick("day")} ${pick("hour")}:${pick("minute")}:${pick("second")}`;
+}
+
+function getClientIp(request) {
+  const cfIp = String(request.headers.get("CF-Connecting-IP") || "").trim();
+  if (cfIp) return cfIp;
+
+  const realIp = String(request.headers.get("X-Real-IP") || "").trim();
+  if (realIp) return realIp;
+
+  const forwarded = String(request.headers.get("X-Forwarded-For") || "").trim();
+  if (forwarded) {
+    const first = forwarded.split(",")[0]?.trim();
+    if (first) return first;
+  }
+
+  return "未知";
+}
+
+function formatDeviceInfoLines(raw) {
+  if (!raw) return [];
+  let info;
+  try {
+    info = JSON.parse(raw);
+  } catch {
+    return ["", "📱 设备信息", raw];
+  }
+  if (!info || typeof info !== "object") return [];
+
+  const fields = [
+    ["device_name", "名称"],
+    ["model", "型号"],
+    ["manufacturer", "厂商"],
+    ["brand", "品牌"],
+    ["device", "设备代号"],
+    ["product", "产品"],
+    ["hardware", "硬件"],
+    ["android", "安卓版本"],
+    ["api_level", "API 等级"],
+    ["system_build", "系统版本"],
+    ["kernel", "内核"],
+    ["cpu", "CPU"],
+    ["network", "网络"],
+    ["local_ip", "局域网 IP"],
+    ["uptime", "开机时长"],
+    ["screen", "屏幕分辨率"],
+    ["density_dpi", "屏幕 DPI"],
+    ["abis", "CPU 架构"],
+    ["device_id", "设备码"],
+    ["usage_days", "累计使用"],
+    ["app_version", "应用版本"],
+    ["app_package", "包名"],
+  ];
+
+  const lines = ["", "📱 设备信息"];
+  for (const [key, label] of fields) {
+    const value = info[key];
+    if (value === undefined || value === null || String(value).trim() === "") continue;
+    lines.push(`${label}：${value}`);
+  }
+  return lines;
+}
+
+function buildSummary({ text, username, deviceId, appVersion, appType, appId, usageDays, imageCount, clientIp, deviceInfoRaw }) {
   const lines = [
     "📩 用户反馈",
     "",
     text ? `内容：\n${text}` : "内容：（仅图片）",
     "",
     `用户：${username || "未知"}`,
-    `设备码：${deviceId || "未知"}`,
-    `应用：${appType}${appVersion ? ` v${appVersion}` : ""}`,
   ];
-  if (appId) lines.push(`包名：${appId}`);
-  lines.push(`图片：${imageCount} 张`);
-  lines.push(`时间：${new Date().toISOString()}`);
+
+  if (!deviceInfoRaw) {
+    lines.push(`设备码：${deviceId || "未知"}`);
+    lines.push(`应用：${appType}${appVersion ? ` v${appVersion}` : ""}`);
+    if (appId) lines.push(`包名：${appId}`);
+    if (usageDays) lines.push(`累计使用：${usageDays} 天`);
+  }
+
+  lines.push(`公网 IP：${clientIp || "未知"}`);
+  lines.push(...formatDeviceInfoLines(deviceInfoRaw));
+
+  if (imageCount > 0) lines.push(`图片：${imageCount} 张`);
+  lines.push(`时间：${formatFeedbackTime()}`);
   return lines.join("\n");
 }
 
