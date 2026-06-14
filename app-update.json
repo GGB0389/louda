@@ -1,16 +1,14 @@
 {
-  "versionCode": 2056,
-  "versionName": "1.8.0",
-  "fileName": "ACE1.8.0.APK",
-  "sizeBytes": 68609665,
-  "sizeLabel": "65.4 MB",
+  "versionCode": 2100,
+  "versionName": "2.0.0",
   "websiteUrl": "https://ace游戏管家.top/",
-  "downloadUrl": "https://wwaza.lanzouq.com/b00v03de3g",
-  "forceUpdate": false,
+  "downloadUrl": "https://wang-bak.pages.dev/louda/ACE2.0.0.APP",
+  "sizeBytes": 14113374,
+  "fileName": "ACE2.0.0.apk",
+  "forceUpdate": true,
   "updateLog": [
-    "APP 自动检测更新",
-    "大版本强制更新（大改动，必须安装新版）",
-    "小版本选择性更新（有小毛病就更新，没毛病可跳过）",
-    "点击按钮跳转官网方可自动更新"
+    "2.0 正式版",
+    "优化内核与物品导出相关能力",
+    "修复已知问题，建议立即更新"
   ]
 }
