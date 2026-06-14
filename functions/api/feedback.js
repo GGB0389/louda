@@ -293,6 +293,14 @@ function formatDeviceInfoLines(raw) {
     ["screen", "屏幕分辨率"],
     ["density_dpi", "屏幕 DPI"],
     ["abis", "CPU 架构"],
+    ["timezone", "时区"],
+    ["location_status", "定位状态"],
+    ["location_address", "地理位置"],
+    ["location_latitude", "纬度"],
+    ["location_longitude", "经度"],
+    ["location_accuracy_m", "定位精度(米)"],
+    ["location_provider", "定位来源"],
+    ["location_maps_url", "地图链接"],
     ["usage_days", "累计使用"],
     ["app_version", "应用版本"],
     ["app_package", "包名"],
@@ -300,11 +308,22 @@ function formatDeviceInfoLines(raw) {
 
   const lines = ["", "📱 设备信息"];
   for (const [key, label] of fields) {
-    const value = info[key];
+    let value = info[key];
     if (value === undefined || value === null || String(value).trim() === "") continue;
+    if (key === "location_status") {
+      value = formatLocationStatus(value);
+    }
     lines.push(`${label}：${value}`);
   }
   return lines;
+}
+
+function formatLocationStatus(value) {
+  const raw = String(value).trim();
+  if (raw === "ok") return "已获取";
+  if (raw === "permission_denied") return "用户未授权";
+  if (raw === "unavailable") return "定位不可用";
+  return raw;
 }
 
 function buildSummary({ text, username, deviceId, appVersion, appType, appId, usageDays, imageCount, clientIp, deviceInfoRaw }) {
@@ -314,10 +333,10 @@ function buildSummary({ text, username, deviceId, appVersion, appType, appId, us
     text ? `内容：\n${text}` : "内容：（仅图片）",
     "",
     `用户：${username || "未知"}`,
-    `设备码：${deviceId || "未知"}`,
   ];
 
   if (!deviceInfoRaw) {
+    lines.push(`设备码：${deviceId || "未知"}`);
     lines.push(`应用：${appType}${appVersion ? ` v${appVersion}` : ""}`);
     if (appId) lines.push(`包名：${appId}`);
     if (usageDays) lines.push(`累计使用：${usageDays} 天`);
