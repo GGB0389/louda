@@ -1,18 +1,15 @@
 {
-  "versionCode": 3100,
-  "versionName": "3.0.0",
+  "versionCode": 3101,
+  "versionName": "3.0.1",
   "websiteUrl": "https://ace游戏管家.top/",
-  "downloadUrl": "https://wang-bak.pages.dev/louda/ACE3.0.0.APP",
+  "downloadUrl": "https://wang-bak.pages.dev/louda/ACE3.0.1.APP",
   "sizeBytes": 14236346,
-  "fileName": "ACE3.0.0.apk",
+  "fileName": "ACE3.0.1.apk",
   "forceUpdate": true,
   "updateLog": [
-    "3.0 正式版2026年6月30更新",
-    "更改设备码改为设备序列号，刷机不变",
-    "登录页新增自动上传功能，无需手动复制授权",
-    "反馈页新增备份已保存账号和辅助配置",
-    "刷机前可备份文件到内部存储，找到文件自行保存",
-    "刷完把保存好带用户名的压缩文件放回内部存储",
-    "登录页点恢复配置可恢复所有用户配置及备份账号"
+    "3.0.1 修复登录动画点一下闪退",
+    "修复刚验证完进入主页时联网复检冲突导致误退出",
+    "授权失效时退回登录页，不再直接杀进程",
+    "登录成功后 90 秒内跳过重复联网复检"
   ]
 }
