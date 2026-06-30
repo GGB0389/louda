@@ -1,17 +1,18 @@
 {
-  "versionCode": 2100,
-  "versionName": "2.0.0",
+  "versionCode": 3100,
+  "versionName": "3.0.0",
   "websiteUrl": "https://ace游戏管家.top/",
-  "downloadUrl": "https://wang-bak.pages.dev/louda/ACE2.0.0.APP",
-  "sizeBytes": 14113374,
-  "fileName": "ACE2.0.0.apk",
+  "downloadUrl": "https://wang-bak.pages.dev/louda/ACE3.0.0.APP",
+  "sizeBytes": 14236346,
+  "fileName": "ACE3.0.0.apk",
   "forceUpdate": true,
   "updateLog": [
-    "2026.6.14.12:00发布2.0 正式版,APP内可自动更新安装",
-    "优化安装大小旧版约65MB,新版仅13MB",
-    "检测模块缺失强制刷入改成可选",
-    "模块页可关闭开启是否检测模块并刷入",
-    "增加反馈功能，实时上传问题，便于更新优化",
-    "修复已知问题，建议立即更新"
+    "3.0 正式版2026年6月30更新",
+    "更改设备码改为设备序列号，刷机不变",
+    "登录页新增自动上传功能，无需手动复制授权",
+    "反馈页新增备份已保存账号和辅助配置",
+    "刷机前可备份文件到内部存储，找到文件自行保存",
+    "刷完把保存好带用户名的压缩文件放回内部存储",
+    "登录页点恢复配置可恢复所有用户配置及备份账号"
   ]
 }
