@@ -1,12 +1,12 @@
 {
-  "versionCode": 6000,
-  "versionName": "6.0.0",
+  "versionCode": 5200,
+  "versionName": "5.2.0",
   "websiteUrl": "https://ace游戏管家.top/",
-  "downloadUrl": "https://wang-bak.pages.dev/ACE6.0.0.APK",
+  "downloadUrl": "https://wang-bak.pages.dev/ACE5.2.0.APK",
   "sizeBytes": 14518232,
-  "fileName": "ACE6.0.0.apk",
+  "fileName": "ACE5.2.0.apk",
   "forceUpdate": true,
   "updateLog": [
-    "6.0 版本升级"
+    "5.2.0 版本升级"
   ]
 }
