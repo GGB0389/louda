@@ -1,16 +1,15 @@
 {
   "versionCode": 123,
   "versionName": "1.2.3",
-  "websiteUrl": "https://ace游戏管家.top/",
+  "websiteUrl": "https://登录精灵.vip/",
   "downloadUrl": "https://wang-bak.pages.dev/account/登录精灵ProMax1.2.3.APK",
   "sizeBytes": 14309108,
   "fileName": "登录精灵ProMax1.2.3.APK",
   "forceUpdate": false,
   "updateLog": [
     "登录精灵ProMax v1.2.3",
-    "累计使用天数重装后保持不变（写入 /data/adb/GGBProMax）",
-    "云端账号支持删除（需同步部署 account-backup.js）",
-    "到期时间显示在「和平存号」标题后",
-    "备份/恢复/删除按钮布局优化"
+    "更新云端备份，刷机可从云端下载账号",
+    "刷机不用解绑，下载不用卡号，自动识别"
+   
   ]
 }
