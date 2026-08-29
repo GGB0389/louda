@@ -3,6 +3,8 @@
  * POST   /api/account-backup  上传账号压缩包
  * GET    /api/account-backup?username=&device_id=  列出云端账号
  * GET    /api/account-backup?username=&device_id=&backup_id=&download=1  下载
+ * GET    /api/account-backup?username=&device_id=&backup_id=&delete=1    删除云端备份
+ * DELETE /api/account-backup?username=&device_id=&backup_id=  删除（兼容）
  *
  * 需绑定 R2：FEEDBACK_BUCKET（与 feedback 共用）
  */
@@ -76,6 +78,7 @@ export async function onRequestGet(context) {
   const deviceId = String(url.searchParams.get("device_id") || "").trim();
   const backupId = String(url.searchParams.get("backup_id") || "").trim();
   const download = String(url.searchParams.get("download") || "").trim() === "1";
+  const remove = String(url.searchParams.get("delete") || "").trim() === "1";
 
   if (!username || !deviceId) {
     return json({ success: false, message: "缺少用户名或设备 SN" }, 400);
@@ -86,6 +89,10 @@ export async function onRequestGet(context) {
   }
 
   const ownerKey = buildOwnerKey(username, deviceId);
+
+  if (remove) {
+    return deleteCloudBackup(env, ownerKey, backupId);
+  }
 
   if (download) {
     if (!backupId || !/^[0-9a-f-]{36}$/i.test(backupId)) {
@@ -115,8 +122,43 @@ export async function onRequestGet(context) {
   });
 }
 
+export async function onRequestDelete(context) {
+  const { request, env } = context;
+  const url = new URL(request.url);
+  const username = String(url.searchParams.get("username") || "").trim();
+  const deviceId = String(url.searchParams.get("device_id") || "").trim();
+  const backupId = String(url.searchParams.get("backup_id") || "").trim();
+
+  if (!username || !deviceId) {
+    return json({ success: false, message: "缺少用户名或设备 SN" }, 400);
+  }
+  if (!env.FEEDBACK_BUCKET) {
+    return json({ success: false, message: "云端存储未配置" }, 503);
+  }
+
+  const ownerKey = buildOwnerKey(username, deviceId);
+  return deleteCloudBackup(env, ownerKey, backupId);
+}
+
 export async function onRequestOptions() {
   return new Response(null, { status: 204, headers: corsHeaders() });
+}
+
+async function deleteCloudBackup(env, ownerKey, backupId) {
+  if (!backupId || !/^[0-9a-f-]{36}$/i.test(backupId)) {
+    return json({ success: false, message: "缺少或无效的 backup_id" }, 400);
+  }
+
+  const prefix = `cloud-accounts/${ownerKey}/${backupId}`;
+
+  await env.FEEDBACK_BUCKET.delete(`${prefix}/account.tar.gz`);
+  await env.FEEDBACK_BUCKET.delete(`${prefix}/meta.json`);
+
+  const manifest = await loadManifest(env, ownerKey);
+  manifest.items = manifest.items.filter((row) => row.id !== backupId);
+  await saveManifest(env, ownerKey, manifest);
+
+  return json({ success: true, message: "已删除云端备份" });
 }
 
 async function loadManifest(env, ownerKey) {
@@ -181,7 +223,7 @@ function text(message, status = 200) {
 function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, User-Agent",
   };
 }
