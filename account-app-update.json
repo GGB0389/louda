@@ -1,16 +1,15 @@
 {
-  "versionCode": 125,
-  "versionName": "1.2.5",
+  "versionCode": 126,
+  "versionName": "1.2.6",
   "websiteUrl": "https://ace游戏管家.top/",
-  "downloadUrl": "https://wang-bak.pages.dev/account/登录精灵ProMax1.2.5.APK",
-  "sizeBytes": 14300916,
-  "fileName": "登录精灵ProMax1.2.5.APK",
+  "downloadUrl": "https://wang-bak.pages.dev/account/登录精灵ProMax1.2.6.APK",
+  "sizeBytes": 14313204,
+  "fileName": "登录精灵ProMax1.2.6.APK",
   "forceUpdate": false,
   "updateLog": [
-    "登录精灵ProMax v1.2.5",
-    "修复热恢复：使用 /data/user/0 路径与 cat 覆盖写入",
-    "热恢复时清除 GCloud.mmap3 缓存，不重启游戏",
-    "游戏在后台点恢复后手动切回即可换号",
-    "云端账号支持删除"
+    "登录精灵ProMax v1.2.6",
+    "新增「一键同步到云端」批量上传本机账号",
+    "新增「一键下载到本机」批量拉取云端账号",
+    "已存在的同名账号自动跳过，避免重复"
   ]
 }
