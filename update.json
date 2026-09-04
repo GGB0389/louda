@@ -3,9 +3,9 @@
   "url": "https://wang-bak.pages.dev/GGB.sh",
   "fileName": "GGB.sh",
   "saveDir": "/data/user/0/com.ggb0389.game/files/shell",
-  "sizeBytes": 14889779,
+  "sizeBytes": 22858957,
   "updateLog": [
-    "8.8版本9月2日5点推送更新正式版",
+    "8.8.6修复已知问题",
     "已测试三小时稳定无异常情况",
     "主要针对近期官方打击外挂做出重大安全更新",
     "自瞄重构陀螺仪自瞄算法，新增5套血条绘图样式",
