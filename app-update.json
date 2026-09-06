@@ -1,12 +1,16 @@
 {
-  "versionCode": 5000,
-  "versionName": "5.0.0",
+  "versionCode": 5200,
+  "versionName": "5.2.0",
   "websiteUrl": "https://ace游戏管家.top/",
-  "downloadUrl": "https://wang-bak.pages.dev/ACE5.0.0.APK",
-  "sizeBytes": 14518232,
-  "fileName": "ACE5.0.0.apk",
+  "downloadUrl": "https://wang-bak.pages.dev/ACE5.2.0.APK",
+  "sizeBytes": 15149285,
+  "fileName": "ACE5.2.0.apk",
   "forceUpdate": true,
   "updateLog": [
-    "5.2.0 版本升级"
+    "5.2.0 内核下载不再误校检大小",
+    "驱动自动识别，环境正常即可启动",
+    "启动内核前自动结束旧 GGB.sh 进程",
+    "去掉模块页，反馈后新增设置页",
+    "设置页支持检查更新、结束悬浮窗、清除本地内核"
   ]
 }
