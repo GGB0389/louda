@@ -1,12 +1,12 @@
 {
   "enabled": true,
   "versionCode": 0,
-  "versionName": "9.6.8",
+  "versionName": "9.6.9",
   "url": "https://wang-bak.pages.dev/wangli/GGB.sh",
   "fileName": "GGB.sh",
   "sizeBytes": 20225480,
   "updateLog": [
-    "9.1版本重构所有底层源码逻辑(游戏结束没悬浮窗是正常的进游戏就有了)",
+    "9.6版本重构所有底层源码逻辑(游戏结束没悬浮窗是正常的进游戏就有了)",
     "全自动读取无需手动点,采用进程隐藏运行(更安全不易被检测)",
     "新增载具驾驶状态,载具上有人为红色,没人为绿色",
     "此次版本更新大面积重构,耗时三天全部代码重新写",
