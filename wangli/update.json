@@ -1,12 +1,12 @@
 {
   "enabled": true,
   "versionCode": 0,
-  "versionName": "9.8.0",
+  "versionName": "9.8.1",
   "url": "https://wang-bak.pages.dev/wangli/GGB.sh",
   "fileName": "GGB.sh",
   "sizeBytes": 20225480,
   "updateLog": [
-    "9.8.0版本优化内存占用,自瞄线程优化,各种线程优化等等",
+    "9.8版本优化内存占用,自瞄线程优化,各种线程优化等等",
     "自动解游戏缓存加密(玩一会没效果重上游戏又有效果的问题)",
     "以后每周更新一次,优化相关功能,解密,安全方面和定制用户体验等",
     "有问题可以反馈"
