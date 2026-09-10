@@ -1,12 +1,13 @@
 {
-  "versionName": "9.8.2",
+  "versionName": "9.10.0",
   "url": "https://wang-bak.pages.dev/GGB.sh",
   "fileName": "GGB.sh",
   "saveDir": "/data/user/0/com.ggb0389.game/files/shell",
   "sizeBytes": 22858957,
   "updateLog": [
-    "9.8优化内存占用,自瞄流畅度, 掩体变色,各种线程优化等等",
-    "自动解游戏缓存加密(玩一会没效果重上游戏又有效果的问题)",
+    "9.10.0优化个别设备兼容性问题",
+    "针对个别设备系统杀进程,导致程序崩溃做出优化",
+    "新增基址回退,读写串行化,互拆锁,后台线程安全",
     "有问题可以在反馈页反馈"
   ]
 }
