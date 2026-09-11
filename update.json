@@ -1,13 +1,12 @@
 {
-  "versionName": "9.11.0",
+  "versionName": "9.11.1",
   "url": "https://wang-bak.pages.dev/GGB.sh",
   "fileName": "GGB.sh",
   "saveDir": "/data/user/0/com.ggb0389.game/files/shell",
   "sizeBytes": 22858957,
   "updateLog": [
-    "9.11.0更新坐标解密,如遇绘制闪烁打开坐标解密",
-    "针对个别设备系统杀进程,导致程序崩溃做出优化",
-    "新增基址回退,读写串行化,互拆锁,后台线程安全",
+    "9.11.1更新坐标解密,如遇绘制闪烁打开坐标解密",
+    "优化掉后台问题",
     "优化空投判断异常,新增载具鹿显示",
     "有问题可以在反馈页反馈"
   ]
