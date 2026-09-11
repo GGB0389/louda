@@ -1,14 +1,14 @@
 {
   "enabled": true,
   "versionCode": 0,
-  "versionName": "9.10.0",
+  "versionName": "9.11.0",
   "url": "https://wang-bak.pages.dev/wangli/GGB.sh",
   "fileName": "GGB.sh",
   "sizeBytes": 20225480,
   "updateLog": [
-    "9.10.0优化设备兼容性问题",
-    "针对系统杀进程,导致程序崩溃做出优化",
-    "新增基址回退,读写串行化,互拆锁,后台线程安全",
-    "优化空投判断异常,新增载具鹿显示"
+    "9.11.0优化掉后台问题",
+    "更新坐标解密,如遇绘制闪烁打开坐标解密",
+    "升级专属定制服务器到12GB 8核高速服务器"
+  
   ]
 }
