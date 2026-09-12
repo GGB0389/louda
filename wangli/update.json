@@ -1,12 +1,12 @@
 {
   "enabled": true,
   "versionCode": 0,
-  "versionName": "9.11.0",
+  "versionName": "9.12.0",
   "url": "https://wang-bak.pages.dev/wangli/GGB.sh",
   "fileName": "GGB.sh",
   "sizeBytes": 20225480,
   "updateLog": [
-    "9.11.0优化掉后台问题",
+    "9.12.0优化掉后台问题",
     "更新坐标解密,如遇绘制闪烁打开坐标解密",
     "升级专属定制服务器到12GB 8核高速服务器"
   
