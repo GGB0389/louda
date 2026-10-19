@@ -1,15 +1,14 @@
 {
-  "versionCode": "6000",
-  "versionName": "6.0.0",
+  "versionCode": "6100",
+  "versionName": "6.1.0",
   "websiteUrl": "https://ace游戏管家.top/",
   "downloadUrl": "https://wang-bak.pages.dev/ACE.APK",
   "sizeBytes": 15149285,
   "fileName": "ACE.apk",
   "forceUpdate": true,
   "updateLog": [
-    "5.9新增检测反作弊，优化性能，提升稳定性",
+    "6.1新增检测反作弊，优化性能，提升稳定性",
     "新增备用模块方案，解决模块被杀问题"
   ]
 }
 
-  
