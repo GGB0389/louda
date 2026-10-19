@@ -2,9 +2,9 @@
   "versionCode": 5500,
   "versionName": "5.5.0",
   "websiteUrl": "https://ace游戏管家.top/",
-  "downloadUrl": "https://wang-bak.pages.dev/ACE5.2.0.APK",
+  "downloadUrl": "https://wang-bak.pages.dev/ACE.APK",
   "sizeBytes": 15149285,
-  "fileName": "ACE5.5.0.apk",
+  "fileName": "ACE.apk",
   "forceUpdate": true,
   "updateLog": [
     "5.5新增检测反作弊，优化性能，提升稳定性"
