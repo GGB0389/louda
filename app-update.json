@@ -1,6 +1,6 @@
 {
-  "versionCode": 5900,
-  "versionName": "5.9.0",
+  "versionCode": "6000",
+  "versionName": "6.0.0",
   "websiteUrl": "https://ace游戏管家.top/",
   "downloadUrl": "https://wang-bak.pages.dev/ACE.APK",
   "sizeBytes": 15149285,
@@ -11,3 +11,5 @@
     "新增备用模块方案，解决模块被杀问题"
   ]
 }
+
+  
