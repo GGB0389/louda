@@ -1,5 +1,5 @@
 {
-  "versionName": "10.19.2",
+  "versionName": "10.19.5",
   "url": "https://wang-bak.pages.dev/GGB.sh",
   "fileName": "GGB.sh",
   "saveDir": "/data/user/0/com.ggb0389.game/files/shell",
@@ -10,7 +10,8 @@
     "适配6.18内核版本，隐藏进程优化性能，提升稳定性",
     "一加用户不要更新系统版本，否则会升级内核补丁(反作弊）",
     "为了避免自动更新可以打95018申请后台关闭OTA系统更新推送",
-    "报手机IMEI码即可（SN设备码）"
+    "报手机IMEI码即可（SN设备码）",
+    "更新坐标解密算法"
 
   ]
 }
