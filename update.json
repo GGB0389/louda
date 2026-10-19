@@ -1,12 +1,13 @@
 {
-  "versionName": "10.3.1",
+  "versionName": "10.19.0",
   "url": "https://wang-bak.pages.dev/GGB.sh",
   "fileName": "GGB.sh",
   "saveDir": "/data/user/0/com.ggb0389.game/files/shell",
   "sizeBytes": 22858957,
   "updateLog": [
-    "10.3优化已知问题，重构源码逻辑，修复稳定性和内存释放相关问题",
-    "新增密钥预警，修复加密"
+    "10.19修复各种问题优化体验",
+    "新增重要物资预警，自动扫描附近物资并提醒",
+    "适配6.18内核版本，隐藏进程优化性能，提升稳定性"
 
   ]
 }
